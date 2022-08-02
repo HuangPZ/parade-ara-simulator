@@ -4,6 +4,7 @@
 
 #Common configurations in the script
 GEM5=./parade-test/gem5-ara.opt
+# GEM5=./parade-test/gem5.opt
 OUT_DIR=./parade-test/
 BOOT_DIR=./configs/boot/
 START_CKPT_DIR=./parade-test/ckpt-1core/
@@ -16,34 +17,39 @@ COMMON_CONFIG="configs/example/fs.py --checkpoint-dir=${START_CKPT_DIR} \
 
 BENCHS=(
 ###Medical Imaging(MI) benchmarks##############
-    'Deblur_Modified'
-    'Denoise'
-    'Registration_Modified'
-    'Segmentation'
+    # 'Deblur_Modified'
+    # 'Denoise'
+    # 'Registration_Modified'
+    # 'Segmentation'
 ###CoMmercial(CM) benchmarks###################
     'BlackScholes'
-    'StreamCluster'
-    'Swaptions'
-###computer VISion(VIS) benchmarks#############
-    'LPCIP_Desc'
-    'Texture_Synthesis'
-###NAVigation(NAV) benchmarks##################
-    'Robot_Localization'
-    'Disparity_Map'
-    'EKF_SLAM'
+#     'StreamCluster'
+#     'Swaptions'
+# ###computer VISion(VIS) benchmarks#############
+#     'LPCIP_Desc'
+#     'Texture_Synthesis'
+# ###NAVigation(NAV) benchmarks##################
+#     'Robot_Localization'
+#     'Disparity_Map'
+#     'EKF_SLAM'
 )
+
+
 
 for((i=0; i < ${#BENCHS[@]}; i++)) do
     bench=${BENCHS[$i]}
     BENCH_DIR=${OUT_DIR}/${PREFIX}_${bench}/
     SCRIPT_FILE=${BOOT_DIR}/${bench}.${SUFFIX}.rcS
+    mkdir -p ${BENCH_DIR}
     OUT_FILE=${BENCH_DIR}/result.txt
     echo "(time -p ${GEM5} --outdir=${BENCH_DIR} ${COMMON_CONFIG} \
         --acc_types=${bench} --script=${SCRIPT_FILE}) >& ${OUT_FILE} &"
     (time -p ${GEM5} --outdir=${BENCH_DIR} ${COMMON_CONFIG} \
         --acc_types=${bench} --script=${SCRIPT_FILE}) >& ${OUT_FILE} &
 done
-
+wait
+date
+echo "Done"
 ################################################################################################################
 #Command used to do checkpoint, we have to use the hack_back_ckpt.rcS to do checkpoint so that after restoring from checkpoint, it can read our new script
 #./parade-test/gem5.opt --outdir=x86-out configs/example/fs.py --cpu-type=atomic -n 1 --mem-size=2GB --script=configs/boot/hack_back_ckpt.rcS

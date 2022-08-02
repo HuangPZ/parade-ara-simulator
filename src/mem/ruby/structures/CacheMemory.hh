@@ -43,6 +43,8 @@
 #include "mem/ruby/structures/BankedArray.hh"
 #include "mem/ruby/structures/LRUPolicy.hh"
 #include "mem/ruby/structures/PseudoLRUPolicy.hh"
+#include "mem/ruby/structures/RandomPolicy.hh"
+#include "mem/ruby/structures/BRRIPPolicy.hh"
 #include "mem/ruby/system/CacheRecorder.hh"
 #include "params/RubyCache.hh"
 #include "sim/sim_object.hh"

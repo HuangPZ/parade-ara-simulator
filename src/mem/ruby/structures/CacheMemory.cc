@@ -81,6 +81,12 @@ CacheMemory::init()
     else if (m_policy == "LRU")
         m_replacementPolicy_ptr =
             new LRUPolicy(m_cache_num_sets, m_cache_assoc);
+    else if (m_policy == "RANDOM")
+        m_replacementPolicy_ptr =
+            new RandomPolicy(m_cache_num_sets, m_cache_assoc);
+    else if (m_policy == "BRRIP")
+        m_replacementPolicy_ptr =
+            new BRRIPPolicy(m_cache_num_sets, m_cache_assoc, 10);
     else
         assert(false);
 

@@ -37,7 +37,7 @@ class RubyCache(SimObject):
     size = Param.MemorySize("capacity in bytes");
     latency = Param.Cycles("");
     assoc = Param.Int("");
-    replacement_policy = Param.String("PSEUDO_LRU", "");
+    replacement_policy = Param.String("RANDOM", "");
     start_index_bit = Param.Int(6, "index start, default 6 for 64-byte line");
     is_icache = Param.Bool(False, "is instruction only cache");
 

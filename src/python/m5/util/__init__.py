@@ -116,7 +116,6 @@ def compareVersions(v1, v2):
             return map(lambda x: int(re.match('\d+', x).group()), v.split('.'))
         else:
             raise TypeError
-
     v1 = make_version_list(v1)
     v2 = make_version_list(v2)
     # Compare corresponding elements of lists

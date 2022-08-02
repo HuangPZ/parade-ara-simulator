@@ -598,8 +598,7 @@ if main['GCC']:
     if compareVersions(gcc_version, "4.8") > 0:
         as_version = readCommand([main['AS'], '-v', '/dev/null'],
                                  exception=False).split()
-
-        if not as_version or compareVersions(as_version[-1], "2.23") < 0:
+        if not as_version or compareVersions(as_version[3], "2.23") < 0: # were a bug
             print termcap.Yellow + termcap.Bold + \
                 'Warning: This combination of gcc and binutils have' + \
                 ' known incompatibilities.\n' + \
